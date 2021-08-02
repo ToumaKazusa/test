@@ -1,0 +1,34 @@
+[1] "Log file from run of script on Sun Feb 16 09:42:56 2020"
+NULL
+NULL
+Length  Class   Mode 
+     0   NULL   NULL 
+NULL
+NULL
+$democrat
+numeric(0)
+
+$democrat
+numeric(0)
+
+$republican
+numeric(0)
+
+           Length Class  Mode   
+democrat   0      -none- numeric
+republican 0      -none- numeric
+$democrat
+numeric(0)
+
+$republican
+numeric(0)
+
+$squaredAge
+numeric(0)
+
+           Length Class  Mode   
+democrat   0      -none- numeric
+republican 0      -none- numeric
+squaredAge 0      -none- numeric
+< table of extent 0 >
+< table of extent 0 x 0 >
