@@ -1,0 +1,36 @@
+cat("\014")
+
+setwd("~/Downloads/rassitance/")
+
+library(readr)
+participants <- read_csv("Participants.csv", 
+                         col_types = cols(`Date of Birth` = col_date(format = "%m-%d-%Y"), 
+                                          `Date of Enrollment` = col_date(format = "%m-%d-%Y"), 
+                                          `Date of Exit` = col_date(format = "%m-%d-%Y")))
+                                          
+participants <- participants %>% mutate(`Date of Enrollment`=as.Date(`Date of Enrollment`, tryFormat="%m-%d-%Y"))
+articipants <- participants %>% mutate(`Date of Exit`=as.Date(`Date of Exit`, tryFormat="%m-%d-%Y"))
+
+library(tidyverse)
+participants$duration <- participants$`Date of Exit` - participants$`Date of Enrollment`
+
+participants$`Job Placement Hourly Wage` <- as.numeric(gsub('[$,]', '', participants$`Job Placement Hourly Wage`))
+
+name_with_hour <- participants %>% filter(`Job Placement Hourly Wage` > 0, `Job Placement Hours Work Per Week` > 0) %>% select(`Full Name`)
+
+name_with_placement <- participants %>% filter(`Job Placement` == 1) %>% select(`Full Name`)
+
+name_diff1 <- setdiff(name_with_placement, name_with_hour)
+name_diff2 <- setdiff(name_with_hour, name_with_placement)
+
+adultCsv <- read_csv("AdultCSV6.30.csv", 
+    col_names = FALSE)
+outcomesReport <- read_excel("OutcomesReport.xlsx")
+join <- full_join(outcomesReport, adultCsv, by=c("IDnum"="X2"))
+
+
+log <- file("run.log")
+sink(log, append=TRUE, type="message")
+source("code.R", echo=TRUE, max.deparse.length=10000)
+sink()
+sink(type="message")
